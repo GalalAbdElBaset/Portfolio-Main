@@ -893,7 +893,7 @@ footer {
    DYNAMIC ACCENT COLORS (GLOBAL FIX)
    ============================================ */
 a:not([class*="btn"]):not(.contact-btn) {
-    color: var(--accent);
+    color: var(--bg-light);
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -1205,8 +1205,10 @@ button.send {
     }
     
     .service {
+        display: flex;
         padding: 10px;
         gap: 8px;
+        flex-direction: column;
     }
     
     .service .icon {
@@ -1481,8 +1483,8 @@ button.send {
     }
     
     .cta {
-        padding: 6px 12px;
-        font-size: 0.7rem;
+        padding: 5px 8px;
+        font-size: 10px;
     }
     
     .meta-chips > div {
