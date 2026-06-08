@@ -157,11 +157,61 @@ window.addEventListener('load', () => {
     initCounters();
     initAvailabilityStatus();
     initSkillBars();
+    initAccentButtons();
 });
 
 window.addEventListener('beforeunload', () => {
     if (typingTimeout) clearTimeout(typingTimeout);
 });
+
+/***********************************************
+ * Accent Buttons (Dynamic Color Change)
+ ***********************************************/
+function applyAccentColor(accentColor) {
+    // تغيير الـ CSS Variable الرئيسية
+    document.documentElement.style.setProperty('--accent', accentColor);
+    
+    // تغيير اللون الثانوي بناءً على اللون الأساسي
+    let accent2 = '#8b5cf6'; // Default purple
+    if (accentColor === '#ef4444') {
+        accent2 = '#f97316';
+    } else if (accentColor === '#10b981') {
+        accent2 = '#06b6d4';
+    } else {
+        accent2 = '#8b5cf6';
+    }
+    document.documentElement.style.setProperty('--accent-2', accent2);
+    
+    // حفظ اللون في localStorage
+    localStorage.setItem('site-accent', accentColor);
+}
+
+function initAccentButtons() {
+    // عند تحميل الصفحة، طبق اللون المحفوظ
+    const savedAccent = localStorage.getItem('site-accent');
+    if (savedAccent) {
+        applyAccentColor(savedAccent);
+    }
+    
+    // الأزرار بتاعت تغيير اللون (Palette)
+    document.querySelectorAll('.palette').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const newColor = btn.dataset.color;
+            applyAccentColor(newColor);
+            
+            // عرض رسالة للمستخدم إن اللون اتغير
+            Swal.fire({
+                title: 'Accent Changed!',
+                text: `Theme color updated successfully`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                toast: true,
+                position: 'bottom-end'
+            });
+        });
+    });
+}
 
 /***********************************************
  * Mobile Menu
@@ -177,17 +227,33 @@ function initMobileMenu() {
         mobileNav.classList.add('open');
         overlay.classList.add('open');
         document.body.classList.add('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        mobileNav.setAttribute('aria-hidden', 'false');
+        setTimeout(() => navLinks[0]?.focus(), 100);
     }
     
     function closeMenu() {
         mobileNav.classList.remove('open');
         overlay.classList.remove('open');
         document.body.classList.remove('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
     }
     
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (menuBtn) {
+        menuBtn.addEventListener('click', openMenu);
+        menuBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') openMenu();
+        });
+    }
     if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     if (overlay) overlay.addEventListener('click', closeMenu);
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+            closeMenu();
+        }
+    });
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -198,6 +264,7 @@ function initMobileMenu() {
                 closeMenu();
                 setTimeout(() => {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.focus();
                 }, 300);
             }
         });
@@ -349,51 +416,53 @@ function updateThemeFloat() {
     themeFloat.setAttribute('aria-pressed', isLight ? 'true' : 'false');
 }
 
-document.querySelectorAll('.palette').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const c = btn.dataset.color;
-        document.documentElement.style.setProperty('--accent', c);
-        localStorage.setItem('site-accent', c);
-        if (c === '#ef4444') document.documentElement.style.setProperty('--accent-2', '#f97316');
-        else if (c === '#10b981') document.documentElement.style.setProperty('--accent-2', '#06b6d4');
-        else document.documentElement.style.setProperty('--accent-2', '#8b5cf6');
-    });
-});
-
 /***********************************************
  * Header scroll & back-to-top
  ***********************************************/
 const header = document.getElementById('siteHeader');
 const backToTop = document.getElementById('backToTop');
+let ticking = false;
+
 window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if (y > 20) {
-        header.style.backdropFilter = 'blur(6px)';
-        header.style.background = 'rgba(2,6,23,0.55)';
-        header.style.boxShadow = '0 8px 30px rgba(2,6,23,0.35)';
-    } else {
-        header.style.backdropFilter = 'none';
-        header.style.background = 'transparent';
-        header.style.boxShadow = 'none';
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            const y = window.scrollY;
+            if (y > 20) {
+                header.style.backdropFilter = 'blur(6px)';
+                header.style.background = 'rgba(2,6,23,0.55)';
+                header.style.boxShadow = '0 8px 30px rgba(2,6,23,0.35)';
+            } else {
+                header.style.backdropFilter = 'none';
+                header.style.background = 'transparent';
+                header.style.boxShadow = 'none';
+            }
+            backToTop.style.display = (y > 600) ? 'flex' : 'none';
+            ticking = false;
+        });
+        ticking = true;
     }
-    backToTop.style.display = (y > 600) ? 'flex' : 'none';
 });
+
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 /***********************************************
- * Avatar parallax
+ * Avatar parallax (optimized)
  ***********************************************/
 const avatar = document.getElementById('avatar');
-if (avatar) {
+if (avatar && window.innerWidth > 768) {
+    let rafId = null;
     avatar.addEventListener('mousemove', (e) => {
-        const r = avatar.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        const dx = (e.clientX - cx) / r.width;
-        const dy = (e.clientY - cy) / r.height;
-        avatar.style.transform = `translate3d(${dx * 8}px, ${dy * 8}px, 0) rotateX(${dy * 6}deg) rotateY(${dx * 6}deg)`;
-        const img = avatar.querySelector('img');
-        if (img) img.style.transform = `scale(1.07) translate3d(${dx * 6}px, ${dy * 6}px, 0)`;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            const r = avatar.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const dx = (e.clientX - cx) / r.width;
+            const dy = (e.clientY - cy) / r.height;
+            avatar.style.transform = `translate3d(${dx * 8}px, ${dy * 8}px, 0) rotateX(${dy * 6}deg) rotateY(${dx * 6}deg)`;
+            const img = avatar.querySelector('img');
+            if (img) img.style.transform = `scale(1.07) translate3d(${dx * 6}px, ${dy * 6}px, 0)`;
+        });
     });
     avatar.addEventListener('mouseleave', () => {
         avatar.style.transform = '';
@@ -529,13 +598,19 @@ function openProjectModal(project) {
         </div>
     `;
     modal.style.display = 'flex';
-    setTimeout(() => modal.style.opacity = '1', 20);
+    modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) closeBtn.focus();
+    }, 20);
 }
 
 function closeProjectModal() {
     const modal = document.getElementById('projectModal');
     if (!modal) return;
     modal.style.opacity = '0';
+    modal.setAttribute('aria-hidden', 'true');
     setTimeout(() => modal.style.display = 'none', 220);
 }
 
@@ -548,22 +623,28 @@ document.getElementById('projectModal')?.addEventListener('click', (e) => {
 });
 
 /***********************************************
- * Cursor trail
+ * Cursor trail (disabled on mobile for performance)
  ***********************************************/
 const cursorDot = document.getElementById('cursorDot');
-if (cursorDot) {
+if (cursorDot && window.innerWidth > 768) {
+    let rafId = null;
     window.addEventListener('mousemove', (e) => {
-        cursorDot.style.left = (e.clientX - 8) + 'px';
-        cursorDot.style.top = (e.clientY - 8) + 'px';
-        cursorDot.style.width = '16px';
-        cursorDot.style.height = '16px';
-        cursorDot.style.borderRadius = '50%';
-        cursorDot.style.background = 'linear-gradient(90deg,var(--accent),var(--accent-2))';
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+            cursorDot.style.left = (e.clientX - 8) + 'px';
+            cursorDot.style.top = (e.clientY - 8) + 'px';
+            cursorDot.style.width = '16px';
+            cursorDot.style.height = '16px';
+            cursorDot.style.borderRadius = '50%';
+            cursorDot.style.background = 'linear-gradient(90deg,var(--accent),var(--accent-2))';
+        });
     });
     window.addEventListener('mouseleave', () => {
         cursorDot.style.transform = 'scale(0.2)';
         cursorDot.style.opacity = '0.6';
     });
+} else if (cursorDot) {
+    cursorDot.style.display = 'none';
 }
 
 /***********************************************

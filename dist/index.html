@@ -7,15 +7,15 @@
     <meta name="keywords" content="Front-End Developer, JavaScript, HTML, CSS, Portfolio, Galal Abd El-Baset, Web Development, REST APIs" />
     <meta name="author" content="Galal Abd El-Baset" />
     <meta name="robots" content="index, follow" />
-    
+        
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://galalabdelbaset.github.io/portfolio/" />
+    <link rel="canonical" href="https://galalabdelbaset.github.io/Portfolio-Main/" />
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Galal Abd El-Baset — Front-End Developer Portfolio" />
     <meta property="og:description" content="Front-End Developer skilled in HTML, CSS, JavaScript, and REST APIs. Building responsive, user-friendly web applications." />
     <meta property="og:image" content="https://iili.io/KPPgLCB.jpg" />
-    <meta property="og:url" content="https://galalabdelbaset.github.io/portfolio/" />
+    <meta property="og:url" content="https://galalabdelbaset.github.io/Portfolio-Main/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Galal Abd El-Baset Portfolio" />
     
@@ -25,6 +25,11 @@
     <meta name="twitter:description" content="Front-End Developer skilled in HTML, CSS, JavaScript, and REST APIs." />
     <meta name="twitter:image" content="https://iili.io/KPPgLCB.jpg" />
     
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    
     <!-- Structured Data / Schema.org -->
     <script type="application/ld+json">
     {
@@ -32,7 +37,7 @@
         "@type": "Person",
         "name": "Galal Abd El-Baset",
         "jobTitle": "Front-End Developer",
-        "url": "https://galalabdelbaset.github.io/portfolio/",
+        "url": "https://galalabdelbaset.github.io/Portfolio-Main/",
         "email": "galalabdelbaset28@gmail.com",
         "telephone": "+201032581322",
         "sameAs": [
@@ -54,7 +59,7 @@
     
     <title>Galal Abd El-Baset — Front-End Developer | HTML · CSS · JavaScript · REST APIs</title>
 
-    <!-- AOS -->
+    <!-- AOS (load with defer for better performance) -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <!-- SweetAlert2 -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css" rel="stylesheet" />
@@ -87,7 +92,7 @@
     <header id="siteHeader" aria-label="Main header">
         <div class="header-inner">
             <div class="brand">
-                <div class="logo">Galal Abd El-Baset</div>
+                <div class="logo" aria-label="Logo">Galal Abd El-Baset</div>
                 <nav id="mainNav" aria-label="Main navigation">
                     <a href="#about"><i class="fa-solid fa-user"></i> About</a>
                     <a href="#experience"><i class="fa-solid fa-briefcase"></i> Work</a>
@@ -96,32 +101,32 @@
                     <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
                 </nav>
                 <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
 
-            <div style="display:flex;align-items:center;gap:12px">
+            <div class="header-actions">
                 <div class="availability-badge" id="availabilityBadge">
                     <span class="status-dot"></span>
                     <span>Available for Work</span>
                 </div>
-                <button class="cta" onclick="document.querySelector('#contact input, #contact textarea').focus()"><i class="fa-solid fa-paper-plane"></i> Work with me</button>
+                <button class="cta" onclick="document.querySelector('#contact input, #contact textarea').focus()" aria-label="Contact me"><i class="fa-solid fa-paper-plane"></i> Work with me</button>
             </div>
         </div>
         
         <!-- Mobile Navigation Menu -->
-        <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav" id="mobileNav" aria-hidden="true">
             <div class="mobile-nav-header">
                 <div class="logo">Galal Abd El-Baset</div>
-                <button class="close-mobile-menu" id="closeMobileMenu">✕</button>
+                <button class="close-mobile-menu" id="closeMobileMenu" aria-label="Close menu">✕</button>
             </div>
             <div class="mobile-nav-links">
-                <a href="#about"><i class="fa-solid fa-user"></i> About</a>
-                <a href="#experience"><i class="fa-solid fa-briefcase"></i> Work</a>
-                <a href="#skills"><i class="fa-solid fa-gears"></i> Skills</a>
-                <a href="#showcase"><i class="fa-solid fa-grid"></i> Projects</a>
-                <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+                <a href="#about" tabindex="-1"><i class="fa-solid fa-user"></i> About</a>
+                <a href="#experience" tabindex="-1"><i class="fa-solid fa-briefcase"></i> Work</a>
+                <a href="#skills" tabindex="-1"><i class="fa-solid fa-gears"></i> Skills</a>
+                <a href="#showcase" tabindex="-1"><i class="fa-solid fa-grid"></i> Projects</a>
+                <a href="#contact" tabindex="-1"><i class="fa-solid fa-envelope"></i> Contact</a>
             </div>
             <div class="mobile-nav-footer">
                 <div class="availability-badge">
@@ -135,13 +140,13 @@
     </header>
 
     <!-- HERO -->
-    <section class="hero" id="home" data-aos="fade-up" data-aos-duration="900">
+    <section class="hero" id="home" data-aos="fade-up" data-aos-duration="700">
         <div class="hero-card card" id="heroCard">
             <h1 id="typingLine">Hi, I'm Galal Abd El-Baset — Front-End Developer 💻</h1>
-            <p class="muted" id="subline">Front-End Developer skilled in HTML, CSS, JavaScript, and REST APIs. Passionate about building responsive, user-friendly, and high-performance web applications. Experienced in integrating REST APIs, optimizing UI performance, and working with Git and GitHub.</p>
+            <p class="muted" id="subline">Front-End Developer skilled in HTML, CSS, JavaScript, and REST APIs. Passionate about building responsive, user-friendly, and high-performance web applications.</p>
 
             <div style="height:12px"></div>
-            <button class="cta" onclick="document.querySelector('#contact input').focus()"><i class="fa-solid fa-briefcase"></i> Hire me</button>
+            <button class="cta" onclick="document.querySelector('#contact input').focus()" aria-label="Hire me"><i class="fa-solid fa-briefcase"></i> Hire me</button>
 
             <div class="stats-row">
                 <div class="stat-item" data-count="10">
@@ -169,31 +174,30 @@
                 <div><i class="fa-solid fa-envelope"></i> <a id="publicEmail" href="mailto:galalabdelbaset28@gmail.com">galalabdelbaset28@gmail.com</a></div>
             </div>
 
-            <div style="height:12px"></div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <div class="accent-selector">
                 <div style="font-size:13px;color:var(--muted)">Accent:</div>
-                <div style="display:flex;gap:8px">
-                    <button class="palette" data-color="#3b82f6" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border:0;cursor:pointer" title="Blue"></button>
-                    <button class="palette" data-color="#ef4444" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#ef4444,#f97316);border:0;cursor:pointer" title="Red"></button>
-                    <button class="palette" data-color="#10b981" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(90deg,#10b981,#06b6d4);border:0;cursor:pointer" title="Green"></button>
+                <div class="accent-buttons">
+                    <button class="palette" data-color="#3b82f6" style="background:linear-gradient(90deg,#3b82f6,#8b5cf6)" aria-label="Blue accent"></button>
+                    <button class="palette" data-color="#ef4444" style="background:linear-gradient(90deg,#ef4444,#f97316)" aria-label="Red accent"></button>
+                    <button class="palette" data-color="#10b981" style="background:linear-gradient(90deg,#10b981,#06b6d4)" aria-label="Green accent"></button>
                 </div>
             </div>
         </div>
 
-        <div class="profile" data-aos="zoom-in" data-aos-duration="900">
+        <div class="profile" data-aos="zoom-in" data-aos-duration="700">
             <div class="avatar" id="avatar" role="img" aria-label="Profile image">
-                <img src="https://iili.io/KPPgLCB.jpg" alt="Galal Abd El-Baset" loading="eager" />
+                <img src="https://iili.io/KPPgLCB.jpg" alt="Galal Abd El-Baset" loading="eager" width="340" height="340" />
             </div>
         </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="card" data-aos="fade-up" data-aos-duration="800">
+    <section id="about" class="card" data-aos="fade-up" data-aos-duration="600">
         <div class="section-row">
             <div>
                 <h2 class="section-title">About</h2>
                 <p class="muted">
-                    I'm a passionate Front-End Developer from Giza, Egypt. I focus on creating responsive, user-friendly web experiences using modern technologies like HTML5, CSS3, JavaScript, and REST APIs. Experienced in integrating REST APIs, optimizing UI performance, and working with version control systems like Git and GitHub.
+                    I'm a passionate Front-End Developer from Giza, Egypt. I focus on creating responsive, user-friendly web experiences using modern technologies like HTML5, CSS3, JavaScript, and REST APIs.
                 </p>
                 <div style="height:12px"></div>
                 <ul class="muted" style="margin-left:18px">
@@ -206,7 +210,7 @@
 
             <aside>
                 <div class="section-image" aria-hidden="true">
-                    <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?w=600&auto=format" alt="About image" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?w=600&auto=format" alt="About" loading="lazy" width="600" height="180" />
                 </div>
                 <div style="height:12px"></div>
                 <div class="card" style="padding:12px">
@@ -221,14 +225,14 @@
     </section>
 
     <!-- EXPERIENCE TIMELINE -->
-    <section id="experience" data-aos="fade-up" data-aos-duration="800">
+    <section id="experience" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Experience & Training</h2>
         <div class="section-image" aria-hidden="true" style="height:220px">
-            <img src="https://iili.io/KPpK8qF.md.png" alt="Work image" loading="lazy" />
+            <img src="https://iili.io/KPpK8qF.md.png" alt="Work" loading="lazy" width="1100" height="220" />
         </div>
 
         <div class="timeline" style="margin-top:12px">
-            <div class="timeline-item" data-aos="fade-right" data-aos-duration="700">
+            <div class="timeline-item" data-aos="fade-right" data-aos-duration="500">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content card">
                     <h3>Bachelor's Degree</h3>
@@ -236,15 +240,15 @@
                     <p class="muted">Computer Science with Excellent Honors (85.3%) — Assiut University</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-right" data-aos-duration="750">
+            <div class="timeline-item" data-aos="fade-right" data-aos-duration="550">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content card">
                     <h3>Front-End Trainee - NTI</h3>
                     <div class="meta">2025</div>
-                    <p class="muted">Intensive training in HTML5, CSS3, JavaScript, Git & GitHub. Built multiple real-world projects.</p>
+                    <p class="muted">Intensive training in HTML5, CSS3, JavaScript, Git & GitHub.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-right" data-aos-duration="800">
+            <div class="timeline-item" data-aos="fade-right" data-aos-duration="600">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content card">
                     <h3>Personal Projects</h3>
@@ -256,7 +260,7 @@
     </section>
 
     <!-- TRAINING & CERTIFICATIONS -->
-    <section id="training" data-aos="fade-up" data-aos-duration="800">
+    <section id="training" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Training & Certifications</h2>
         <div class="training-grid">
             <div class="training-card card">
@@ -284,7 +288,7 @@
     </section>
 
     <!-- EDUCATION -->
-    <section id="education" data-aos="fade-up" data-aos-duration="800">
+    <section id="education" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Education</h2>
         <div class="card" style="margin-top:12px;padding:16px">
             <h3>Assiut University</h3>
@@ -294,11 +298,11 @@
     </section>
 
     <!-- TECH SKILLS -->
-    <section id="skills" class="card" data-aos="fade-up" data-aos-duration="800">
+    <section id="skills" class="card" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Technical Skills</h2>
 
         <div class="section-image" aria-hidden="true">
-            <img src="https://iili.io/KiKVmyQ.jpg" alt="Skills image" loading="lazy" />
+            <img src="https://iili.io/KiKVmyQ.jpg" alt="Skills" loading="lazy" width="1100" height="180" />
         </div>
 
         <div class="skills-progress" style="margin-top:20px">
@@ -363,41 +367,41 @@
     </section>
 
     <!-- SHOWCASE with Filtering -->
-    <section id="showcase" data-aos="fade-up" data-aos-duration="800">
+    <section id="showcase" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Featured Projects</h2>
         
         <div class="project-filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="html-css">HTML/CSS</button>
-            <button class="filter-btn" data-filter="javascript">JavaScript</button>
+            <button class="filter-btn active" data-filter="all" aria-label="Show all projects">All</button>
+            <button class="filter-btn" data-filter="html-css" aria-label="Show HTML/CSS projects">HTML/CSS</button>
+            <button class="filter-btn" data-filter="javascript" aria-label="Show JavaScript projects">JavaScript</button>
         </div>
 
         <div class="project-search">
-            <input type="text" id="projectSearch" placeholder="Search projects..." />
+            <input type="text" id="projectSearch" placeholder="Search projects..." aria-label="Search projects" />
         </div>
 
         <div class="grid" id="projectsGrid"></div>
 
         <div style="display:flex;justify-content:center;margin-top:24px;">
-            <button id="viewMoreBtn" class="cta"><i class="fa-solid fa-eye"></i> Load More</button>
+            <button id="viewMoreBtn" class="cta" aria-label="Load more projects"><i class="fa-solid fa-eye"></i> Load More</button>
         </div>
     </section>
 
     <!-- PROJECT MODAL -->
-    <div id="projectModal" class="modal" aria-hidden="true">
-        <div class="modal-card card" role="dialog" aria-modal="true">
-            <button class="close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+    <div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-card card">
+            <button class="close" onclick="closeProjectModal()" aria-label="Close modal">✕</button>
             <div id="modalContent"></div>
         </div>
     </div>
 
     <!-- SERVICES -->
-    <section data-aos="fade-up" data-aos-duration="800">
+    <section data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Services</h2>
         <div class="services-grid">
-            <div class="service card" data-aos="fade-up" data-aos-duration="700">
+            <div class="service card" data-aos="fade-up" data-aos-duration="500">
                 <div class="section-image" style="height:120px;margin-bottom:10px">
-                    <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&auto=format" alt="Website dev" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&auto=format" alt="Web development" loading="lazy" width="600" height="120" />
                 </div>
                 <div style="display:flex;gap:12px;align-items:flex-start">
                     <div class="icon"><i class="fa-solid fa-globe"></i></div>
@@ -408,9 +412,9 @@
                 </div>
             </div>
 
-            <div class="service card" data-aos="fade-up" data-aos-duration="750">
+            <div class="service card" data-aos="fade-up" data-aos-duration="550">
                 <div class="section-image" style="height:120px;margin-bottom:10px">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format" alt="UI work" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format" alt="UI design" loading="lazy" width="600" height="120" />
                 </div>
                 <div style="display:flex;gap:12px;align-items:flex-start">
                     <div class="icon"><i class="fa-solid fa-map-signs"></i></div>
@@ -421,9 +425,9 @@
                 </div>
             </div>
 
-            <div class="service card" data-aos="fade-up" data-aos-duration="800">
+            <div class="service card" data-aos="fade-up" data-aos-duration="600">
                 <div class="section-image" style="height:120px;margin-bottom:10px">
-                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&auto=format" alt="Performance" loading="lazy" />
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&auto=format" alt="Performance" loading="lazy" width="600" height="120" />
                 </div>
                 <div style="display:flex;gap:12px;align-items:flex-start">
                     <div class="icon"><i class="fa-solid fa-bolt"></i></div>
@@ -437,10 +441,10 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="card" data-aos="fade-up" data-aos-duration="800">
+    <section id="contact" class="card" data-aos="fade-up" data-aos-duration="600">
         <h2 class="section-title">Contact</h2>
         <div class="section-image" aria-hidden="true" style="height:140px;margin-bottom:12px">
-            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&auto=format" alt="Contact image" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&auto=format" alt="Contact" loading="lazy" width="600" height="140" />
         </div>
 
         <div class="contact-grid">
@@ -448,11 +452,11 @@
                 <p class="muted contact-info">If you'd like to work together, send me a message.</p>
                 
                 <div class="direct-contact">
-                    <a href="https://wa.me/201032581322" target="_blank" class="contact-btn whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                    <a href="https://github.com/GalalAbdElBaset" target="_blank" class="contact-btn github"><i class="fa-brands fa-github"></i> GitHub</a>
-                    <a href="https://www.linkedin.com/in/galal-abd-el-baset-galal/" target="_blank" class="contact-btn linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                    <a href="mailto:galalabdelbaset28@gmail.com" class="contact-btn email"><i class="fa-solid fa-envelope"></i> Email</a>
-                    <a href="tel:+201032581322" class="contact-btn phone"><i class="fa-solid fa-phone"></i> Call</a>
+                    <a href="https://wa.me/201032581322" target="_blank" class="contact-btn whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://github.com/GalalAbdElBaset" target="_blank" class="contact-btn github" aria-label="GitHub"><i class="fa-brands fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/galal-abd-el-baset-galal/" target="_blank" class="contact-btn linkedin" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                    <a href="mailto:galalabdelbaset28@gmail.com" class="contact-btn email" aria-label="Email"><i class="fa-solid fa-envelope"></i> Email</a>
+                    <a href="tel:+201032581322" class="contact-btn phone" aria-label="Call"><i class="fa-solid fa-phone"></i> Call</a>
                 </div>
 
                 <div style="margin:12px 0">
@@ -462,13 +466,13 @@
                 <form id="contactForm" action="https://formspree.io/f/xgvapnkr" method="POST">
                     <input type="hidden" name="_subject" value="New Portfolio Contact" />
                     <input type="hidden" name="_replyto" id="formReplyTo" value="" />
-                    <input id="name" name="name" type="text" placeholder="Your name" required />
+                    <input id="name" name="name" type="text" placeholder="Your name" required aria-label="Your name" />
                     <div style="height:8px"></div>
-                    <input id="email" name="email" type="email" placeholder="Email" required />
+                    <input id="email" name="email" type="email" placeholder="Email" required aria-label="Your email" />
                     <div style="height:8px"></div>
-                    <textarea id="message" name="message" rows="4" placeholder="Message" required></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="Message" required aria-label="Your message"></textarea>
                     <div style="height:10px"></div>
-                    <button class="send" id="sendBtn" type="submit">
+                    <button class="send" id="sendBtn" type="submit" aria-label="Send message">
                         <span class="sendText"><i class="fa-solid fa-paper-plane"></i> Send</span>
                         <svg id="sendSpinner" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none;margin-left:8px">
                             <circle cx="12" cy="12" r="8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-dasharray="40" stroke-dashoffset="0"></circle>
@@ -482,8 +486,8 @@
                 <div class="muted">Computer Science — Assiut University</div>
                 <div style="height:8px"></div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap">
-                    <a href="#" class="cta preview-cv"><i class="fa-solid fa-eye"></i> Preview</a>
-                    <a href="https://drive.google.com/file/d/1hEqCHiNGhtHRdqG61L6qVN1UrnT1fooZ/view?usp=drive_link" target="_blank" class="cta" id="downloadCV"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="#" class="cta preview-cv" aria-label="Preview resume"><i class="fa-solid fa-eye"></i> Preview</a>
+                    <a href="https://drive.google.com/file/d/1hEqCHiNGhtHRdqG61L6qVN1UrnT1fooZ/view?usp=drive_link" target="_blank" class="cta" id="downloadCV" aria-label="Download resume"><i class="fa-solid fa-download"></i> Download</a>
                 </div>
             </aside>
         </div>
@@ -504,25 +508,36 @@
 </div>
 
 <!-- Floating buttons -->
-<button id="themeFloat" aria-pressed="false" title="Toggle dark/light mode"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
-<button id="backToTop" class="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="themeFloat" aria-pressed="false" title="Toggle dark/light mode" aria-label="Toggle theme"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+<button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-<!-- Dependencies -->
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
-<script src="js/main.js"></script>
+<!-- Dependencies with defer for better performance -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js" defer></script>
+<script src="js/main.js" defer></script>
 
 <style>
     @keyframes spin { to { transform: rotate(360deg); } }
     #sendSpinner circle { stroke-dasharray: 40; animation: spin 1s linear infinite; stroke-linecap:round }
     
     .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .accent-selector { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .accent-buttons { display: flex; gap: 8px; }
+    .palette { width: 28px; height: 28px; border-radius: 8px; border: 0; cursor: pointer; transition: transform 0.2s; }
+    .palette:hover { transform: scale(1.1); }
+    
+    /* Focus States for Accessibility */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
     
     @media (max-width: 768px) {
         .mobile-menu-btn { display: block; }
         nav { display: none; }
         .brand { width: 100%; justify-content: space-between; }
-        .header-inner > div:last-child .availability-badge { display: none; }
+        .header-actions .availability-badge { display: none; }
     }
     
     .mobile-nav {
@@ -535,10 +550,11 @@
     .close-mobile-menu { background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
     .mobile-nav-links { display: flex; flex-direction: column; gap: 20px; }
     .mobile-nav-links a { color: var(--text); font-size: 1.1rem; padding: 10px; border-radius: 8px; transition: background 0.2s; }
-    .mobile-nav-links a:hover { background: rgba(255,255,255,0.05); }
+    .mobile-nav-links a:hover, .mobile-nav-links a:focus { background: rgba(255,255,255,0.05); }
     .mobile-nav-footer { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-    .mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; }
+    .mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; animation: fadeIn 0.3s ease; }
     .mobile-overlay.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     body.menu-open { overflow: hidden; }
 </style>
 </body>
